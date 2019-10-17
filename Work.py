@@ -14,14 +14,18 @@ SCREENSHOT_FILE = TEMP_ROOT % 'screen_shot.png'
 TEMP_FILE = TEMP_ROOT % 'temp.png'
 LOG_FILE = 'temp/log.txt'
 FORMAT = 'png'
+CIRCLE_TIME = 50
+SLEEP_TIME = 5
 
 
+# 裁剪指定区域的内容
 def cropImage(path, box):
     image = Image.open(path)
     region = image.crop(box)
     region.save(TEMP_FILE, FORMAT)
 
 
+# 判断指定区域的内容
 def hasContent(box, content):
     cropImage(SCREENSHOT_FILE, box)
     ocrResult = json.dumps(AipOcr.getPicText(TEMP_FILE), ensure_ascii=False)
@@ -31,6 +35,7 @@ def hasContent(box, content):
     return result
 
 
+# 打印日志
 def printLog(content):
     currentTime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     print(currentTime + ': ' + content)
@@ -38,27 +43,47 @@ def printLog(content):
         f.write(currentTime + ': ' + content + '\n')
 
 
+# 点击屏幕
+def androidClick(box):
+    x = (box[0] + box[2]) / 2
+    y = (box[1] + box[3]) / 2
+    Android.click([x, y])
+
+
 def work():
     printLog('===================================START===================================')
 
-    Timer(20, work).start()
+    Timer(CIRCLE_TIME, work).start()
     Android.screenShort(SCREENSHOT_FILE)
     box1 = (40, 1150, 820, 1350)
     if hasContent(box1, '行动结束'):
-        Android.click([40, 1150])
-        time.sleep(8)
+        androidClick(box1)
+        time.sleep(SLEEP_TIME)
 
     Android.screenShort(SCREENSHOT_FILE)
     box2 = (2550, 1280, 2800, 1350)
     if hasContent(box2, '开始行动'):
-        Android.click([2675, 1315])
-        time.sleep(8)
+        androidClick(box2)
+        time.sleep(SLEEP_TIME)
 
     Android.screenShort(SCREENSHOT_FILE)
     box3 = (2260, 940, 2470, 1243)
     if hasContent(box3, 'OPERATION START'):
-        Android.click([2365, 1090])
+        androidClick(box3)
+        time.sleep(SLEEP_TIME)
+
+    Android.screenShort(SCREENSHOT_FILE)
+    box4 = (740, 690, 1100, 800)
+    if hasContent(box4, '等级提升'):
+        androidClick(box4)
+        time.sleep(SLEEP_TIME)
 
     printLog('===================================END===================================')
 
+
+def initBox():
+    print()
+
+
+# initBox()
 work()
