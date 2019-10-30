@@ -14,7 +14,7 @@ SCREENSHOT_FILE = TEMP_ROOT % 'screen_shot.png'
 TEMP_FILE = TEMP_ROOT % 'temp.png'
 LOG_FILE = 'temp/log.txt'
 FORMAT = 'png'
-CIRCLE_TIME = 50
+CIRCLE_TIME = 30
 SLEEP_TIME = 5
 
 
@@ -81,9 +81,9 @@ def work():
     printLog('===================================END===================================')
 
 
-def initBox():
-    print()
+def test():
+    print(Android.getDevices())
 
 
-# initBox()
+# test()
 work()

@@ -18,6 +18,15 @@ def __parseBounds__(bounds):
     return [x, y]
 
 
+def getDevices():
+    devices = []
+    for device in sub.check_output(AndroidConstants.ADB_DEVICE).splitlines():
+        deviceStr = bytes.decode(device)
+        if 'device' in deviceStr and 'devices' not in deviceStr:
+            devices.append(deviceStr[:deviceStr.index('\t')])
+    return devices
+
+
 def pullFile(fromFile, toFile=CommonConstants.DEFAULT_FILE):
     sub.check_output(AndroidConstants.PULL_FILE % (fromFile, toFile))
 
@@ -35,7 +44,7 @@ def screenShort(pcTarget):
     cacheFile = AndroidConstants.PHONE_PATH + fileName
     sub.check_output(AndroidConstants.SCREEN_CAP % cacheFile)
     pullFile(cacheFile, pcTarget)
-    deleteFile(cacheFile)
+    # deleteFile(cacheFile)
 
 
 # def screenRecord( name, dirPath=CommonConstants.ROOT_PATH):

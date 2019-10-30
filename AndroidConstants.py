@@ -1,11 +1,12 @@
 # coding=utf-8
-PHONE_PATH = '/sdcard/'  # 手机SD根目录
+PHONE_PATH = '/sdcard'  # 手机SD根目录
 
 ADB_ROOT = 'adb -s HC83F1EE0124 %s'
 DEVICE_SERIAL = 'HC83F1EE0124'
 # adb commands
 START_SERVER = 'adb start-server'  # 开始adb进程
 KILL_SERVER = 'adb kill-server'  # 结束adb进程
+ADB_DEVICE = 'adb devices'  # 获取adb设备
 SCREEN_CAP = ADB_ROOT % 'shell screencap %s'  # 手机截图
 SCREEN_RECORD = ADB_ROOT % 'shell screenrecord '  # 手机录屏
 DELETE_FILE = ADB_ROOT % 'shell rm -r %s'  # 手机删除文件
@@ -18,8 +19,8 @@ INPUT = ADB_ROOT % 'shell input %s'  # 手机屏幕操控
 WM_SIZE = ADB_ROOT % 'shell wm size %s'  # 手机屏幕尺寸（高通CPU）
 START_APP = ADB_ROOT % 'shell am start --activity-clear-task %s'  # 启动应用
 INSTALL_APP = ADB_ROOT % 'shell install -r %s'  # 安装应用
-UNINSTALL_APP = ADB_ROOT % 'shell uninstall  %s'  # 安装应用
-FIND_ACTIVITY = ADB_ROOT % 'shell dumpsys window w |findStr name=%s'  # 安装应用
+UNINSTALL_APP = ADB_ROOT % 'shell uninstall  %s'  # 卸载应用
+FIND_ACTIVITY = ADB_ROOT % 'shell dumpsys window w |findStr mSurface=%s'  #
 
 
 class INPUT_TYPE:
