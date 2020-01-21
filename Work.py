@@ -14,8 +14,8 @@ SCREENSHOT_FILE = TEMP_ROOT % 'screen_shot.png'
 TEMP_FILE = TEMP_ROOT % 'temp.png'
 LOG_FILE = 'temp/log.txt'
 FORMAT = 'png'
-CIRCLE_TIME = 30
-SLEEP_TIME = 5
+CIRCLE_TIME = 18
+SLEEP_TIME = 4
 
 
 # 裁剪指定区域的内容
