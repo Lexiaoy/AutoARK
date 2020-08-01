@@ -15,10 +15,13 @@ CIRCLE_TIME = 20
 SLEEP_TIME = 5
 
 def work():
-
-    Timer(CIRCLE_TIME, work).start()
-    Android.click([1000, 2400])
+    time.sleep(0.4)
+    Android.click([1000, 2480])
+    time.sleep(0.4)
     Android.click([840, 1740])
+    # Android.click([755, 2170])
+    # time.sleep(0.1)
+    # Android.click([630, 1450])
     work()
 
 work()

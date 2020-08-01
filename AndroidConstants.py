@@ -1,7 +1,7 @@
 # coding=utf-8
 PHONE_PATH = '/sdcard'  # 手机SD根目录
 
-ADB_ROOT = 'adb -s HC83F1EE0124 %s'
+ADB_ROOT = 'adb %s'
 DEVICE_SERIAL = 'HC83F1EE0124'
 # adb commands
 START_SERVER = 'adb start-server'  # 开始adb进程

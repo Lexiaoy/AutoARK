@@ -14,8 +14,8 @@ SCREENSHOT_FILE = TEMP_ROOT % 'screen_shot.png'
 TEMP_FILE = TEMP_ROOT % 'temp.png'
 LOG_FILE = 'temp/log.txt'
 FORMAT = 'png'
-CIRCLE_TIME = 18
-SLEEP_TIME = 4
+WORK_TIME = 30
+SLEEP_TIME = 3
 
 
 # 裁剪指定区域的内容
@@ -50,40 +50,32 @@ def androidClick(box):
     Android.click([x, y])
 
 
-def work():
+def work(box):
+    time.sleep(SLEEP_TIME)
+    Android.screenShort(SCREENSHOT_FILE)
+    img_box = (box[0], box[1], box[2], box[3])
+    if hasContent(img_box, box[4]):
+        androidClick(box)
+
+
+def start():
     printLog('===================================START===================================')
 
-    Timer(CIRCLE_TIME, work).start()
-    Android.screenShort(SCREENSHOT_FILE)
-    box1 = (40, 1150, 820, 1350)
-    if hasContent(box1, '行动结束'):
-        androidClick(box1)
-        time.sleep(SLEEP_TIME)
+    # box1 = (90, 870, 630, 1010)
+    # box2 = (1940, 940, 2250, 1030)
+    # box3 = (1760, 550, 1970, 970)
+    box1 = (2550, 1280, 2800, 1350, '开始行动')
+    box2 = (2260, 940, 2470, 1243, 'OPERATION START')
+    box3 = (40, 1150, 820, 1350, '行动结束')
+    box4 = (740, 690, 1100, 800, '等级提升')
 
-    Android.screenShort(SCREENSHOT_FILE)
-    box2 = (2550, 1280, 2800, 1350)
-    if hasContent(box2, '开始行动'):
-        androidClick(box2)
-        time.sleep(SLEEP_TIME)
-
-    Android.screenShort(SCREENSHOT_FILE)
-    box3 = (2260, 940, 2470, 1243)
-    if hasContent(box3, 'OPERATION START'):
-        androidClick(box3)
-        time.sleep(SLEEP_TIME)
-
-    Android.screenShort(SCREENSHOT_FILE)
-    box4 = (740, 690, 1100, 800)
-    if hasContent(box4, '等级提升'):
-        androidClick(box4)
-        time.sleep(SLEEP_TIME)
+    work(box1)
+    work(box2)
+    work(box3)
+    work(box4)
 
     printLog('===================================END===================================')
+    start()
 
 
-def test():
-    print(Android.getDevices())
-
-
-# test()
-work()
+start()
