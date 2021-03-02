@@ -16,6 +16,13 @@ FORMAT = 'png'
 WORK_TIME = 30
 SLEEP_TIME = 3
 
+boxs = [
+    (2550, 1280, 2800, 1350, '开始行动'),
+    (2260, 940, 2470, 1243, 'OPERATION START'),
+    (40, 1150, 820, 1350, '行动结束'),
+    (740, 690, 1100, 800, '等级提升')
+];
+
 
 # 裁剪指定区域的内容
 def cropImage(path, box):
@@ -56,21 +63,16 @@ def work(box):
     img_box = (box[0], box[1], box[2], box[3])
     if hasContent(img_box, box[4]):
         androidClick(box)
+        return True
+    return False
 
 
 def start():
     printLog('===================================START===================================')
-
-    box1 = (2550, 1280, 2800, 1350, '开始行动')
-    box2 = (2260, 940, 2470, 1243, 'OPERATION START')
-    box3 = (40, 1150, 820, 1350, '行动结束')
-    box4 = (740, 690, 1100, 800, '等级提升')
-
     try:
-        work(box1)
-        work(box2)
-        work(box3)
-        work(box4)
+        for box in boxs:
+            while not work(box):
+                printLog("WAITING===="+box[4])
     except Exception:
         printLog('执行异常')
         time.sleep(WORK_TIME)
@@ -79,3 +81,16 @@ def start():
 
 
 start()
+
+
+
+
+
+
+
+
+
+
+
+
+
