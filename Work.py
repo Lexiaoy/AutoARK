@@ -4,6 +4,7 @@ from core import OCR
 from android import Android
 import json
 import time
+import sys
 
 # 1.adb保存截图
 # 3.分析截图
@@ -13,8 +14,7 @@ SCREENSHOT_FILE = TEMP_ROOT % 'screen_shot.png'
 TEMP_FILE = TEMP_ROOT % 'temp.png'
 LOG_FILE = 'temp/log.txt'
 FORMAT = 'png'
-WORK_TIME = 30
-SLEEP_TIME = 3
+SLEEP_TIME = 3.3
 
 boxs = [
     (2550, 1280, 2800, 1350, '开始行动'),
@@ -36,7 +36,7 @@ def hasContent(box, content):
     cropImage(SCREENSHOT_FILE, box)
     ocrResult = json.dumps(OCR.getPicText(TEMP_FILE), ensure_ascii=False)
     result = content in ocrResult
-    printLog(ocrResult)
+    # printLog(ocrResult)
     printLog('判断状态:' + content + '--->' + str(result))
     return result
 
@@ -68,6 +68,11 @@ def work(box):
 
 
 def start():
+    devices = Android.getDevices()
+    if len(devices) == 0:
+        printLog('等待设备连接')
+        time.sleep(10)
+        return
     printLog('===================================START===================================')
     try:
         for box in boxs:
@@ -75,12 +80,13 @@ def start():
                 printLog("WAITING===="+box[4])
     except Exception:
         printLog('执行异常')
-        time.sleep(WORK_TIME)
-    printLog('===================================END===================================')
+    printLog('===================================END===================================\n\n')
+
+
+while True:
     start()
-
-
-start()
+else:
+    start()
 
 
 
