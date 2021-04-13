@@ -75,11 +75,12 @@ def start():
         return
     printLog('===================================START===================================')
     try:
-        for box in boxs:
-            while not work(box):
-                printLog("WAITING===="+box[4])
-    except Exception:
-        printLog('执行异常')
+        work(box1)
+        work(box2)
+        work(box3)
+        work(box4)
+    except Exception as e:
+        printLog('执行异常：' + str(e))
     printLog('===================================END===================================\n\n')
 
 
