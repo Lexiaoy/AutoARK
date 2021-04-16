@@ -26,14 +26,19 @@ boxs = [
 
 # 裁剪指定区域的内容
 def cropImage(path, box):
+    printLog('打开图片')
     image = Image.open(path)
+    printLog('裁剪图片')
     region = image.crop(box)
+    printLog('保存裁剪图片')
     region.save(TEMP_FILE, FORMAT)
 
 
 # 判断指定区域的内容
 def hasContent(box, content):
+    printLog('开始处理图片')
     cropImage(SCREENSHOT_FILE, box)
+    printLog('开始OCR')
     ocrResult = json.dumps(OCR.getPicText(TEMP_FILE), ensure_ascii=False)
     result = content in ocrResult
     # printLog(ocrResult)
